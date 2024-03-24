@@ -1,0 +1,22 @@
+<html>
+<title>Realtime Editor/Collaboration</title>
+<body>
+    <h3>Realtime Editor/Collaboration</h3>
+    <div>
+        <textarea id="editor" style="width:100%;height:100%;background-color:lightslategray;color:lawngreen; font-size:30" placeholder="Type Your Text..."></textarea>
+    </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const editor = document.getElementById('editor');
+    editor.addEventListener("keyup", (e) => {
+        const text = editor.value;
+        socket.emit('message', text);
+    })
+    socket.on('message', (data) => {
+        editor.value = data;
+    })
+  </script>
+</body>
+</html>
